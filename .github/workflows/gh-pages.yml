@@ -38,4 +38,4 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload-batch --account-name 'genesysworkshops' --source './public' --destination '$web/CXasCode/'
+            az storage blob upload-batch --account-name 'genesysworkshops' --source './public/.' --destination '$web/CXasCode/'
