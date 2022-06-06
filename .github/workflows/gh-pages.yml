@@ -35,4 +35,5 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload-batch --account-name 'genesysworkshops' --destination '$web/${{github.repository}}/' --source '${{ env.WORKING_DIRECTORY }}/public'
+            az storage blob directory create --account-name 'genesysworkshops' -c $web -d ${{ github.repository }}
+            az storage blob upload-batch --account-name 'genesysworkshops'--source '${{ env.WORKING_DIRECTORY }}/public' --destination '$web/${{ github.repository }}/'
