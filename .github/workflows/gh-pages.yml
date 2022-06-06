@@ -26,9 +26,14 @@ jobs:
       - name: Build
         run: hugo
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
+      - name: Login via Az module
+        uses: azure/login@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          creds: ${{secrets.GENESYS_SAMPLES_SP}}
+
+      - name: Upload Hugo
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az storage blob delete-batch --account-name 'Global Technical Sales' --source '$web/${{github.repository}}'
+            az storage blob upload-batch --account-name 'Global Technical Sales' --destination '$web/${{github.repository}}/' --source '${{ env.WORKING_DIRECTORY }}/public'
