@@ -31,8 +31,11 @@ jobs:
         with:
           creds: ${{secrets.GENESYS_SAMPLES_SP}}
 
+      - name: Print
+        run: env | sort
+
       - name: Upload Hugo
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload-batch --account-name 'genesysworkshops' --source './public' --destination '$web/${{ github.repository }}/'
+            az storage blob upload-batch --account-name 'genesysworkshops' --source './public' --destination '$web/CXasCode/'
